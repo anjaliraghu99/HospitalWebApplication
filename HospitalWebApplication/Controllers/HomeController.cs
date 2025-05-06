@@ -38,7 +38,7 @@ namespace HospitalWebApplication.Controllers
         {
             if (user!=null)
             {
-                var data = _dataDbContext.Users.FirstOrDefault(x=>x.Username == user.Username && x.Password==user.Password);
+                var data = _dataDbContext.Users.FirstOrDefault(x=>x.Email == user.Email && x.Password==user.Password);
                 return true;
             }
             return false;
@@ -53,7 +53,7 @@ namespace HospitalWebApplication.Controllers
 
         public async Task<IActionResult> CreateUser(User user)
         {
-            var data = _dataDbContext.Users.FirstOrDefault(x => x.Username == user.Username);
+            var data = _dataDbContext.Users.FirstOrDefault(x => x.Email == user.Email);
             if(data!=null)
             {
                 var userdata = new User
