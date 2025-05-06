@@ -5,7 +5,7 @@ namespace HospitalWebApplication.Models
     public class Patient
     {
         [Key]
-        public int PatientId { get; set; }
+        public string PatientId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? AppointmentId { get; set; }
