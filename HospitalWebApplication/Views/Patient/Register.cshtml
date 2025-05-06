@@ -1,4 +1,4 @@
-﻿@model User
+﻿@model Patient
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,43 +13,61 @@
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
             <h3 class="text-center mb-3">Create Account</h3>
-            <form asp-action="CreateUser" asp-controller="Patient" method="post">
+            <form asp-action="RegisterUser" asp-controller="Patient" method="post">
                 <!-- Email -->
-                <div class="d-none">
-                    <label asp-for="UserId" class="form-label">UserId</label>
-                    <input asp-for="UserId" class="form-control" placeholder="" />
-                    <span asp-validation-for="UserId" class="text-danger"></span>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="FirstName" class="form-label">First Name</label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="LastName" class="form-label">Last Name</label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
                 </div>
+
                 <div class="mb-3">
-                    <label asp-for="Email" class="form-label">Username</label>
-                    <input asp-for="Email" class="form-control" placeholder="" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <label asp-for="AppointmentId" class="form-label">Appointment ID</label>
+                    <input asp-for="AppointmentId" class="form-control" />
+                    <span asp-validation-for="AppointmentId" class="text-danger"></span>
                 </div>
+
                 <div class="mb-3">
-                    <label asp-for="Password" class="form-label">Password</label>
-                    <input asp-for="Password" class="form-control" type="password" placeholder="" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="d-none">
-                    <label asp-for="UserRoleId" type="hidden" class="form-label">UserRoleId</label>
-                    <input asp-for="UserRoleId" class="form-control" placeholder="" />
-                    <span asp-validation-for="UserRoleId" class="text-danger"></span>
+                    <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
+                    <input asp-for="DateOfBirth" type="date" class="form-control" />
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
                 </div>
 
-
-
-                <!-- Password -->
                 <div class="mb-3">
-                    <label asp-for="UserRoleCode" class="form-label">UserRole</label>
-                    <input asp-for="UserRoleCode" class="form-control" placeholder="" />
-                    <span asp-validation-for="UserRoleCode" class="text-danger"></span>
+                    <label asp-for="Gender" class="form-label">Gender</label>
+                    <select asp-for="Gender" class="form-select">
+                        <option value="">Select Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
 
-                <!-- Remember Me and Forgot -->
-                <!-- Submit -->
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary rounded-pill">Resigter</button>
+                <div class="mb-3">
+                    <label asp-for="Phone" class="form-label">Phone</label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
                 </div>
+
+                <div class="mb-3">
+                    <label asp-for="Address" class="form-label">Address</label>
+                    <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <!-- Hidden Fields -->
+                <input asp-for="CreatedDate" type="hidden" />
+                <input asp-for="BillFileId" type="hidden" />
+
+                <button type="submit" class="btn btn-primary">Register</button>
             </form>
         </div>
     </div>

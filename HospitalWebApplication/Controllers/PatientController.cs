@@ -21,6 +21,7 @@ namespace HospitalWebApplication.Controllers
         {
             _dataDbContext = dataDbContext;
         }
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
@@ -28,14 +29,14 @@ namespace HospitalWebApplication.Controllers
         public async Task<IActionResult> RegisterUser(Patient patient)
         {
             var data = _dataDbContext.Patients.FirstOrDefault(x => x.PatientId == patient.PatientId);
-            if (data != null)
+            if (data == null)
             {
                 var userdata = new Patient
                 {
                     PatientId = Guid.NewGuid().ToString(),
                     FirstName = "",
                     LastName = patient.LastName,
-                    DateOfBirth = patient.DateOfBirth,
+                    DateOfBirth = patient.DateOfBirth?.ToUniversalTime(),
                     Gender = patient.Gender,
                     Phone = patient.Phone,
                     Address = patient.Address,
