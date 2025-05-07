@@ -1,0 +1,46 @@
+﻿@model HospitalWebApplication.Models.Appointment
+
+@{
+    ViewData["Title"] = "Create Appointment";
+}
+
+<h2>Create Appointment</h2>
+
+<div class="container">
+    <form asp-controller="Appointment" asp-action="NewAppointment">
+     
+        <p> Dear Applicant Please fill the fotm to Get An Instent Apointment</p>
+        <div class="form-group">
+            <label asp-for="PatientName">PatientName</label>
+            <input asp-for="PatientName" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AppointmentDate"></label>
+            <input asp-for="AppointmentDate" class="form-control" type="date" />
+        </div>
+
+        <select class="selectpicker form-control" asp-for="Notes" data-live-search="true">
+            <option value="">-- Select Disease --</option>
+            @foreach (var item in ViewBag.DiseaseList)
+            {
+                <option value="@item.Name">@item.Name</option>
+            }
+        </select>
+
+
+
+
+
+        <button type="submit" class="btn btn-primary">Save</button>
+
+        @Html.HiddenFor(model => model.AppointmentId)
+        @Html.HiddenFor(model => model.PatientId)
+        @Html.HiddenFor(model => model.DoctorId)
+        @Html.HiddenFor(model => model.DoctorId)
+        @Html.HiddenFor(model => model.DoctorId
+        )@Html.HiddenFor(model => model.DoctorId)
+
+
+    </form>
+</div>
