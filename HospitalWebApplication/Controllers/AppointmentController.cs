@@ -20,23 +20,25 @@ namespace HospitalWebApplication.Controllers
             {
                 var email = HttpContext.User.Identity.Name;
 
+                var userdata = _dbContext.Users.FirstOrDefault(x => x.Email == email);
+
                 var newmodel = new Appointment
                 {
                     AppointmentId = Guid.NewGuid().ToString(),
                     AppointmentDate = model.AppointmentDate.ToUniversalTime(),
                     PatientId = model.PatientId ?? "",
-                    PatientName = model.PatientName,
+                    PatientName = model.PatientName??"",
                     DoctorId = model.DoctorId ?? "D001",
                     Notes = model.Notes ?? "",
                     BillId = model.BillId ?? "",
-                    Status = model.Status ?? ""
+                    Status = model.Status ?? "Created"
 
                 };
                 _dbContext.Appointments.Add(newmodel);
                await  _dbContext.SaveChangesAsync();
 
             }
-            return Ok();
+            return RedirectToAction("Index", "Home");
 
         }
 

@@ -28,8 +28,11 @@ namespace HospitalWebApplication.Controllers
         public IActionResult Index()
         {
             var data = _dataDbContext.Appointments.ToList();
+            ViewBag.TotelAppointments = data.Count();
+            ViewBag.TotelDoctors = _dataDbContext.Doctors.ToList().Count();
             return View(data);
         }
+
 
         public IActionResult Privacy()
         {
@@ -59,10 +62,8 @@ namespace HospitalWebApplication.Controllers
                         PhoneNumber = data.phoneNumber?.ToString() ?? ""
                     };
 
-                    // Serialize the object to a JSON string and store it in session
                     HttpContext.Session.SetString("UserSessionData", JsonConvert.SerializeObject(sessionData));
 
-                    // Redirect to the Index page (authenticated page)
                     return RedirectToAction("Index");
                 }
                 else
@@ -97,11 +98,9 @@ namespace HospitalWebApplication.Controllers
                 var userdata = new User
                 {
                     UserId= Guid.NewGuid().ToString(),
-                    UserRoleId = "2",
+                    UserRoleId = "2", // by default user is a normal user
                     Password=user.Password,
                     UserRoleCode=user.UserRoleCode
-
-
                 };
 
                 _dataDbContext.Users.Add(userdata);
