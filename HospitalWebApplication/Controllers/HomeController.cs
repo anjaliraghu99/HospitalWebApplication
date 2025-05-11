@@ -76,12 +76,16 @@ namespace HospitalWebApplication.Controllers
             // If the user object is null, redirect to the login page
             return RedirectToAction("Login");
         }
-
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-             return View();
+            // await HttpContext.SignOutAsync();
+            return RedirectToAction("Login");
         }
+        //public IActionResult Logout()
+        //{
+        //     HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        //     return View();
+        //}
 
         [HttpGet]
         public IActionResult Resigter()
