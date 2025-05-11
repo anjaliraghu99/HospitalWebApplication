@@ -48,6 +48,7 @@ namespace HospitalWebApplication.Controllers
 
                 _dataDbContext.Patients.Add(userdata);
                 _dataDbContext.SaveChanges();
+
                 return RedirectToAction("Login");
 
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using HospitalWebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Constraints;
+using Newtonsoft.Json;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace HospitalWebApplication.Controllers
@@ -34,17 +35,43 @@ namespace HospitalWebApplication.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<Boolean> Login(User user)
+        public async Task<IActionResult> Login(User user)
         {
-            if (user!=null)
+            if (user != null)
             {
-                var data = _dataDbContext.Users.FirstOrDefault(x=>x.Email == user.Email && x.Password==user.Password);
-                return true;
+                // Validate user credentials
+                var data = _dataDbContext.Users
+                    .FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
+
+                if (data != null) // Check if user exists in the database
+                {
+                    // Create an object to store session data
+                    var sessionData = new
+                    {
+                        Email = data.Email ?? "",
+                        FirstName = data.FirstName ?? "",
+                        LastName = data.LastName ?? "",
+                        PhoneNumber = data.phoneNumber?.ToString() ?? ""
+                    };
+
+                    // Serialize the object to a JSON string and store it in session
+                    HttpContext.Session.SetString("UserSessionData", JsonConvert.SerializeObject(sessionData));
+
+                    // Redirect to the Index page (authenticated page)
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    // Optionally, you can add an error message here or redirect to a login error page
+                    TempData["ErrorMessage"] = "Invalid credentials!";
+                    return RedirectToAction("Login");
+                }
             }
-            return false;
-          
-          
+
+            // If the user object is null, redirect to the login page
+            return RedirectToAction("Login");
         }
+
         [HttpGet]
         public IActionResult Resigter()
         {

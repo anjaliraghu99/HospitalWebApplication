@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var sessionDataJson = Context.Session.GetString("UserSessionData");
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -109,6 +114,20 @@
             </div>
         </div>
 </div>
+
+    <script>
+        // Check if session data exists
+        var sessionData = @Html.Raw(sessionDataJson ?? "{}");
+
+        // Now you can access session data in JavaScript
+        console.log("Session Data:", sessionData);
+
+        if (sessionData && sessionData.Email) {
+            console.log("Email:", sessionData.Email);
+            console.log("First Name:", sessionData.FirstName);
+            console.log("Phone Number:", sessionData.PhoneNumber);
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
